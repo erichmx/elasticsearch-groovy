@@ -145,6 +145,14 @@ publishing {
 
 archivesBaseName = 'elasticsearch-groovy'
 
+test {
+  // TODO: find a way to add permissions for the tests in this module
+  systemProperty 'tests.security.manager', 'false'
+}
+tasks.withType(GroovyCompile) {
+  groovyOptions.optimizationOptions.indy = true
+}
+
 /**
  * Sets up the publishing of the jars to a Maven repository.
  * <p>

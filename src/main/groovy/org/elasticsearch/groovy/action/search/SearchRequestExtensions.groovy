@@ -21,6 +21,19 @@ package org.elasticsearch.groovy.action.search
 import org.elasticsearch.action.search.SearchRequest
 import org.elasticsearch.action.search.SearchRequestBuilder
 import org.elasticsearch.client.Client
+import org.elasticsearch.search.builder.SearchSourceBuilder
+import org.elasticsearch.common.io.stream.InputStreamStreamInput
+import org.elasticsearch.common.bytes.BytesArray
+import org.elasticsearch.common.bytes.BytesReference
+import org.elasticsearch.search.SearchModule
+import org.elasticsearch.search.SearchRequestParsers
+import org.elasticsearch.common.xcontent.XContentParser
+import org.elasticsearch.index.query.QueryParseContext
+import org.elasticsearch.common.settings.Setting;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.xcontent.XContentFactory
+import org.elasticsearch.common.ParseFieldMatcher;
+
 
 /**
  * {@code SearchRequestExtensions} provides Groovy-friendly {@link SearchRequest} extensions.
@@ -36,8 +49,22 @@ class SearchRequestExtensions {
      * @throws NullPointerException if any parameter is {@code null}
      */
     static SearchRequest source(SearchRequest self, Closure source) {
-        self.source(source.asJsonBytes())
+//        self.source(source.asJsonBytes())
+        self.source(closureToSourceBuilder(source))
     }
+
+    private static SearchModule searchModule = new SearchModule(Settings.EMPTY, false, Collections.emptyList());
+    private static SearchSourceBuilder closureToSourceBuilder(Closure source){
+        SearchRequestParsers searchRequestParsers = searchModule.searchRequestParsers;
+        BytesReference searchSourceAsBytes = new BytesArray(source.asJsonBytes())
+        XContentParser parser = XContentFactory.xContent(searchSourceAsBytes).createParser(searchSourceAsBytes);
+        QueryParseContext parseContext = new QueryParseContext(searchRequestParsers.queryParsers, parser, ParseFieldMatcher.STRICT);
+        SearchSourceBuilder newBuilder = SearchSourceBuilder.fromXContent(parseContext, searchRequestParsers.aggParsers,
+          searchRequestParsers.suggesters, searchRequestParsers.searchExtParsers);
+
+        return newBuilder
+    }
+
 
     /**
      * Sets theextra  content query {@code source}.
@@ -59,7 +86,7 @@ class SearchRequestExtensions {
      * @throws NullPointerException if any parameter is {@code null}
      */
     static SearchRequestBuilder setSource(SearchRequestBuilder self, Closure source) {
-        self.setSource(source.asJsonBytes())
+        self.setSource(closureToSourceBuilder(source))
     }
 
     /**

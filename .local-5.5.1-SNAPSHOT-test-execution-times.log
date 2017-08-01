@@ -1,0 +1,12 @@
+org.elasticsearch.groovy.ClosureExtensionsTests=2,1984,1639,2,1583,2,2,2,192,480
+org.elasticsearch.groovy.ClosureToMapConverterTests=2,1895,1564,2,1687,18,2,6,162,188
+org.elasticsearch.groovy.action.ListenableActionFutureExtensionsTests=1,2021,1586,0,1718,3,1,2,358,390
+org.elasticsearch.groovy.client.AbstractClientTests=3,11,20,2,9,5,3,9,1,1
+org.elasticsearch.groovy.client.AdminClientExtensionsTests=1,1,2,1512,3,1586,1540,1557,3069,2458
+org.elasticsearch.groovy.client.ClientExtensionsActionTests=9,27,1451,30,1500,1746,1446,14351,13113,3498
+org.elasticsearch.groovy.client.ClientExtensionsTests=2,2,1,1578,4,1582,1815,1534,2559,2458
+org.elasticsearch.groovy.client.ClusterAdminClientExtensionsActionTests=11,1735,46,1533,11,1539,1596,1415,37423,35242
+org.elasticsearch.groovy.client.IndicesAdminClientExtensionsActionTests=1376,5,42,5,25,27,6,9,7058,6019
+org.elasticsearch.groovy.common.settings.SettingsBuilderExtensionsTests=1509,2,1,2,2,3,2,2,54,71
+org.elasticsearch.groovy.common.settings.SettingsStaticExtensionsTests=1419,1,3,1,2,0,3,1,780,351
+org.elasticsearch.groovy.common.xcontent.XContentBuilderExtensionsTests=1484,2,1531,16,1727,42,11,2,180,194

@@ -99,9 +99,9 @@ class IndicesAdminClientExtensionsActionTests extends AbstractClientTests {
         SearchResponse searchResponse = client.search {
             indices indexName
             types typeName
-            source {
-                query {
-                    match {
+            source() {
+                query() {
+                    match() {
                         name = "needle"
                     }
                 }

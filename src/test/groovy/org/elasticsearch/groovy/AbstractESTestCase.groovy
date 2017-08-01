@@ -20,6 +20,8 @@ package org.elasticsearch.groovy
 
 import groovy.transform.CompileStatic
 import org.elasticsearch.test.ESTestCase
+import org.elasticsearch.bootstrap.BootstrapForTesting;
+
 
 /**
  * The basis for all Groovy client test classes that do not require a running Elasticsearch cluster / client.
@@ -31,6 +33,8 @@ abstract class AbstractESTestCase extends ESTestCase {
      * Sanitize the test code to allow Groovy to cleanup after itself rather than forcing the onus onto everyone else.
      */
     static {
+        BootstrapForTesting.ensureInitialized();
+
         assert GroovyTestSanitizer.groovySanitized
     }
 }
